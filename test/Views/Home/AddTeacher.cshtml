@@ -1,0 +1,46 @@
+﻿@using test.Models.DTOS
+@model TeacherDto
+@{
+    ViewData["Title"] = "AddTeacher";
+    
+}
+
+<h1> @(Model.Id>0?"Edit Teacher": "Add Teacher")</h1>
+<div class="container-fluid">
+    <form method="post" asp-action="AddTeacher" asp-controller="Home">
+       
+ 
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+        <div class="form-group row">
+            @Html.HiddenFor(model => model.Id)
+            @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Enter Name" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.SubjectsIds, new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-6">
+                @Html.ListBoxFor(model => model.SubjectsIds,new MultiSelectList(Model.drpSubjects, "Value", "Text"), new { @class = "filter-multi-select", multiple = "multiple" , id = "Subjects_dropdown" , name="Subjects_dropdown"})
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <input type="submit" name="name" value="@(Model.Id>0?"Update": "Add")" class="btn btn-success" />
+        </div>
+
+    </form>
+</div>
+
+@section Scripts{
+<script>
+    $(function () {
+      $('#Subjects_dropdown').filterMultiSelect();
+    });
+</script>
+}  
